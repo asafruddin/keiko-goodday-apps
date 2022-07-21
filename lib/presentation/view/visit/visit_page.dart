@@ -17,19 +17,17 @@ class _VisitPageState extends State<VisitPage> {
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.primary,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: Image.network(
-            'https://www.hidupbanyakrasa.com/requirement/images/logo-1.png',
-            height: 30),
+        title: Image.asset('assets/img_logo.png', height: 50),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        children: const [
+        children: [
           UserCard(),
-          SizedBox(height: 20),
-          StatisticCard(),
-          SizedBox(height: 20),
-          ClusterList(),
+          const SizedBox(height: 20),
+          const StatisticCard(),
+          const SizedBox(height: 20),
+          const ClusterList(),
         ],
       ),
     );

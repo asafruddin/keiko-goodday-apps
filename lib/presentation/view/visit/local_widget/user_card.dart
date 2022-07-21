@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/core/injection/di.dart';
+import 'package:keiko_good_day/core/local_storage/shared_preferences.dart';
 import 'package:keiko_good_day/presentation/view/auth/login_page.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({Key? key}) : super(key: key);
+  UserCard({Key? key}) : super(key: key);
+
+  final _prefs = sl<SharedPrefs>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +22,15 @@ class UserCard extends StatelessWidget {
           ),
         ),
         IconButton(
-            onPressed: () => Navigator.pushAndRemoveUntil<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (context) => const LoginPage(),
-                ),
-                (route) => false),
+            onPressed: () {
+              _prefs.clearAll();
+              Navigator.pushAndRemoveUntil<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (context) => const LoginPage(),
+                  ),
+                  (route) => false);
+            },
             icon: Icon(
               Icons.logout_rounded,
               color: Theme.of(context).colorScheme.primary,

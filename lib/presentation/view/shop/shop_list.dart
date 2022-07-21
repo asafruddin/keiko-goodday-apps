@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/presentation/view/gift/choose_gift_page.dart';
 import 'package:keiko_good_day/presentation/view/shop/shop_page.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 import 'package:keiko_good_day/presentation/widget/search_bar/search_filter_bar.dart';
 
 class ShopList extends StatefulWidget {
-  const ShopList({Key? key}) : super(key: key);
+  const ShopList({Key? key, this.isFromGift = false}) : super(key: key);
+
+  final bool isFromGift;
 
   @override
   State<ShopList> createState() => _ShopListState();
@@ -28,9 +31,11 @@ class _ShopListState extends State<ShopList> {
               onTap: () => Navigator.push<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(
-                      builder: (context) => const ShopPage(
-                          imgSrc:
-                              'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg'))),
+                      builder: (context) => widget.isFromGift
+                          ? const ChooseGift()
+                          : const ShopPage(
+                              imgSrc:
+                                  'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg'))),
               child: AppCard(
                 child: Row(
                   children: [

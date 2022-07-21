@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SummaryPage extends StatefulWidget {
   const SummaryPage({Key? key}) : super(key: key);
@@ -54,8 +54,8 @@ class _SummaryPageState extends State<SummaryPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextButton(
                 onPressed: () async {
-                  await launchUrlString(
-                      'https://wa.me/6281393791414/?text=hello world');
+                  await launchUrl(Uri.parse(
+                      'whatsapp://send?text=Total Point Anda adalah 5000 point&phone=6281393791414'));
                 },
                 child: const Text('Kirim Laporan')),
           ),
