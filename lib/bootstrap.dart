@@ -14,9 +14,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:keiko_good_day/core/injection/di.dart' as di;
 import 'package:keiko_good_day/env/config.dart';
 import 'package:keiko_good_day/env/flavor.dart';
-import 'package:keiko_good_day/core/injection/di.dart' as di;
 
 /// [isInDebugMode] check or get in debug mode or not
 bool get isInDebugMode {

@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:keiko_good_day/core/exceptions/failure.dart';
 import 'package:keiko_good_day/core/injection/di.dart';
 import 'package:keiko_good_day/data/model/request/auth/login_body.dart';
 import 'package:keiko_good_day/presentation/bloc/login/login_bloc.dart';
 import 'package:keiko_good_day/presentation/view/navigation/navigation.dart';
+import 'package:keiko_good_day/presentation/view/navigation/seller_navigation.dart';
 import 'package:keiko_good_day/presentation/widget/input/app_text_field.dart';
 import 'package:keiko_good_day/presentation/widget/loader/loader_overlay.dart';
 import 'package:lottie/lottie.dart';
@@ -38,7 +38,9 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushAndRemoveUntil<dynamic>(
                 context,
                 MaterialPageRoute<dynamic>(
-                    builder: (context) => const Navigation()),
+                    builder: (context) => widget.isLoginAsMotoris
+                        ? const Navigation()
+                        : const SellerNavigation()),
                 (route) => false);
           } else {
             if (state.failure != null) {
@@ -64,40 +66,45 @@ class _LoginPageState extends State<LoginPage> {
               SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset('assets/lottie_login.json'),
-                      const SizedBox(height: 30),
-                      Text('Selamat Datang',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary)),
-                      Text(
-                          'Masuk sebagai ${widget.isLoginAsMotoris ? 'Motoris' : 'Grosir'}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2!
-                              .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary)),
-                      const SizedBox(height: 20),
-                      AppTextField(
-                          controller: usernameController,
-                          labelText: 'Username',
-                          hintText: 'Masukkan Username'),
-                      AppTextField(
-                          controller: passwordController,
-                          labelText: 'Password',
-                          hintText: 'Masukkan Password'),
-                      const SizedBox(height: 30),
-                      TextButton(onPressed: onLogin, child: const Text('Login'))
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/lottie_login.json'),
+                        const SizedBox(height: 30),
+                        Text('Selamat Datang',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary)),
+                        Text(
+                            'Masuk sebagai ${widget.isLoginAsMotoris ? 'Motoris' : 'Grosir'}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary)),
+                        const SizedBox(height: 20),
+                        AppTextField(
+                            controller: usernameController,
+                            labelText: 'Username',
+                            hintText: 'Masukkan Username'),
+                        AppTextField(
+                            controller: passwordController,
+                            labelText: 'Password',
+                            hintText: 'Masukkan Password'),
+                        const SizedBox(height: 30),
+                        TextButton(
+                            onPressed: onLogin, child: const Text('Login'))
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -118,7 +125,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onLogin() {
-    loginBloc.add(OnloginEvent(LoginBody(
-        username: usernameController.text, password: passwordController.text)));
+    Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+            builder: (context) => widget.isLoginAsMotoris
+                ? const Navigation()
+                : const SellerNavigation()),
+        (route) => false);
+    // loginBloc.add(OnloginEvent(LoginBody(
+    //     username: usernameController.text, password: passwordController.text)));
   }
 }

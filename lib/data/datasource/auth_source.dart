@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:keiko_good_day/core/exceptions/failure.dart';
 import 'package:keiko_good_day/data/model/request/auth/login_body.dart';
 import 'package:keiko_good_day/data/model/response/auth/login_model.dart';
 import 'package:keiko_good_day/domain/entity/login_entity.dart';

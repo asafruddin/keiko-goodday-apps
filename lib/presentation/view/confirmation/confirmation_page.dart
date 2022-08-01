@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keiko_good_day/presentation/view/confirmation/local_widget/confirmation_content.dart';
+import 'package:keiko_good_day/presentation/view/shop/summary_page.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 
 class ConfirmationPage extends StatefulWidget {
@@ -23,8 +24,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         body: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             itemBuilder: (context, index) {
-              return const AppCard(
-                child: ConfirmationContent(),
+              return AppCard(
+                onPress: () => Navigator.push<dynamic>(
+                    context,
+                    MaterialPageRoute<dynamic>(
+                        builder: (context) => const SummaryPage())),
+                child: const ConfirmationContent(),
               );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 8),

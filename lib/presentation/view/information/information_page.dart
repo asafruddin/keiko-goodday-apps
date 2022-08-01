@@ -16,7 +16,7 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
         appBar: AppBar(
             title: SearchFilterBar(
-          label: 'Daftar Rayon',
+          label: 'Informasi',
           isFilter: false,
           onSearchChanged: (p0) {},
         )),

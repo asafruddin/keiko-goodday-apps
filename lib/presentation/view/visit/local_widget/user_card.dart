@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:keiko_good_day/core/injection/di.dart';
 import 'package:keiko_good_day/core/local_storage/shared_preferences.dart';
-import 'package:keiko_good_day/presentation/view/auth/login_page.dart';
+import 'package:keiko_good_day/presentation/view/intro/intro_menu.dart';
 
 class UserCard extends StatelessWidget {
   UserCard({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class UserCard extends StatelessWidget {
               Navigator.pushAndRemoveUntil<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(
-                    builder: (context) => const LoginPage(),
+                    builder: (context) => const IntroMenu(),
                   ),
                   (route) => false);
             },

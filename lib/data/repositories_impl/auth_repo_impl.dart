@@ -14,7 +14,6 @@ class AuthRepoImpl implements AuthRepository {
   @override
   Future<Either<Failure, LoginEntity>> login(LoginBody body) async {
     try {
-      print('SOMETHING --> ${authSource!.login(body)}');
       return authSource!.login(body).then(right);
     } on DioError catch (e) {
       final failure = ServerFailure(message: e.message);

@@ -1,13 +1,16 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/presentation/view/product/product_page.dart';
 import 'package:keiko_good_day/presentation/view/shop/report_picture_page.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 
 class ShopPage extends StatefulWidget {
-  const ShopPage({Key? key, this.imgSrc}) : super(key: key);
+  const ShopPage({Key? key, this.imgSrc, this.isFromPurchase = false})
+      : super(key: key);
 
   final String? imgSrc;
+  final bool isFromPurchase;
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -71,17 +74,31 @@ class _ShopPageState extends State<ShopPage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.push<dynamic>(
-                          context,
-                          MaterialPageRoute<dynamic>(
-                              builder: (context) => const ReportPicturePage()));
-                    },
-                    child: const Text('Laporan')),
-              )
+              if (widget.isFromPurchase)
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                                builder: (context) => const ProductPage()));
+                      },
+                      child: const Text('Mulai Berbelanja')),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                                builder: (context) =>
+                                    const ReportPicturePage()));
+                      },
+                      child: const Text('Laporan')),
+                )
             ],
           ),
         ));
