@@ -18,7 +18,7 @@ class _NavigationState extends State<Navigation> {
     BottomNavigationBarItem(
         icon: Icon(Icons.meeting_room), label: 'Konfirmasi'),
     BottomNavigationBarItem(icon: Icon(Icons.redeem_rounded), label: 'Hadiah'),
-    BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Informasi'),
+    // BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Informasi'),
   ];
 
   final _selectedIndex = ValueNotifier(0);
@@ -66,6 +66,7 @@ class NavBarPageView extends StatelessWidget {
     return PageView(
         controller: controller,
         onPageChanged: onPageChange,
+        physics: const NeverScrollableScrollPhysics(),
         children: const [
           VisitPage(),
           ConfirmationPage(),

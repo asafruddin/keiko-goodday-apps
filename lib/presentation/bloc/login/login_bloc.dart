@@ -20,7 +20,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase useCase;
   final SharedPrefs prefs = sl<SharedPrefs>();
 
-  Future onLoginEvent(OnloginEvent event, Emitter<LoginState> emit) async {
+  Future<void> onLoginEvent(
+      OnloginEvent event, Emitter<LoginState> emit) async {
     emit(state.copyWith(
         isLogingIn: true,
         isLoginSuccess: false,
@@ -31,18 +32,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     result.fold(
         (l) => emit(state.copyWith(
             isLogingIn: false, failure: l, isLoginSuccess: false)), (r) {
-      if (r.status == 200) {
-        if (r.token != null && r.token!.isNotEmpty) {
-          prefs.putString(KeyConstant.keyAccessToken, r.token!);
-        }
-        emit(state.copyWith(
-            isLogingIn: false, loginEntity: r, isLoginSuccess: true));
-      } else {
-        emit(state.copyWith(
-            isLoginSuccess: false,
-            isLogingIn: false,
-            failure: ServerFailure(message: r.message)));
+      if (r.token != null && r.token!.isNotEmpty) {
+        prefs
+          ..putString(KeyConstant.keyAccessToken, r.token!)
+          ..putInt(KeyConstant.keyUserId, r.data!.id!)
+          ..putString(KeyConstant.keyUserName, r.data?.name ?? '');
       }
+      emit(state.copyWith(
+          isLogingIn: false, loginEntity: r, isLoginSuccess: true));
     });
   }
 }

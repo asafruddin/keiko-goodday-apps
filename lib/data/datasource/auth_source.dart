@@ -1,3 +1,5 @@
+// ignore_for_file: one_member_abstracts
+
 import 'package:dio/dio.dart';
 import 'package:keiko_good_day/data/model/request/auth/login_body.dart';
 import 'package:keiko_good_day/data/model/response/auth/login_model.dart';
@@ -15,7 +17,7 @@ class AuthSourceImpl implements AuthSource {
   @override
   Future<LoginEntity> login(LoginBody body) async {
     final response =
-        await _dio.post<dynamic>('/auth/login.json', data: body.toJson());
+        await _dio.post<dynamic>('/api/auth/login.json', data: body.toJson());
     return LoginModel.fromJson(response.data as Map<String, dynamic>);
   }
 }

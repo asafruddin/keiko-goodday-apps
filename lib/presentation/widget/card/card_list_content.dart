@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CardListContent extends StatelessWidget {
-  const CardListContent({
-    Key? key,
-    this.title,
-    this.subtitle,
-    this.leading,
-  }) : super(key: key);
+  const CardListContent(
+      {Key? key,
+      this.title,
+      this.subtitle,
+      this.leading,
+      this.isWithTrailing = true})
+      : super(key: key);
 
   final String? title;
   final String? subtitle;
   final Widget? leading;
+  final bool? isWithTrailing;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +26,20 @@ class CardListContent extends StatelessWidget {
             children: [
               Text(
                 title ?? '',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.headline6,
               ),
               if (subtitle != null)
                 Text(
                   subtitle ?? '',
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Theme.of(context).disabledColor),
                 ),
             ],
           ),
         ),
-        const Icon(Icons.chevron_right_rounded)
+        if (isWithTrailing!) const Icon(Icons.chevron_right_rounded)
       ],
     );
   }

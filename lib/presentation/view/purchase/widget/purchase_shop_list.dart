@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/core/utils/constant/url_constant.dart';
+import 'package:keiko_good_day/domain/entity/shops_entity.dart';
 import 'package:keiko_good_day/presentation/view/shop/shop_page.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 
 class PurchaseShopList extends StatelessWidget {
-  const PurchaseShopList({Key? key}) : super(key: key);
+  const PurchaseShopList({Key? key, required this.shops}) : super(key: key);
+
+  final List<DataShopsEntity> shops;
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +21,31 @@ class PurchaseShopList extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
           itemBuilder: (BuildContext context, int index) {
+            final shop = shops[index];
             return InkWell(
               onTap: () => Navigator.push<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(
-                      builder: (context) => const ShopPage(
+                      builder: (context) => ShopPage(
+                          idShop: shop.id!,
                           isFromPurchase: true,
-                          imgSrc:
-                              'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg'))),
+                          imgSrc: '$kShopImageUrlConstant${shop.img}'))),
               child: AppCard(
                 child: Row(
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg',
-                        height: size.width / 4.5,
-                        fit: BoxFit.fitHeight,
-                      ),
+                      child: shop.img == null
+                          ? Image.network(
+                              kImagePlaceholder,
+                              height: size.width / 4.5,
+                              fit: BoxFit.fitHeight,
+                            )
+                          : Image.network(
+                              '$kShopImageUrlConstant${shop.img}',
+                              height: size.width / 4.5,
+                              fit: BoxFit.fitHeight,
+                            ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -42,7 +53,7 @@ class PurchaseShopList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Kedai Kopi Mantap',
+                            shop.name ?? '-',
                             maxLines: 1,
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
@@ -66,7 +77,7 @@ Jl. Satelit Indah II Blok FN No.8, Tanjungsari, Kec. Sukomanunggal, Kota SBY, Ja
               ),
             );
           },
-          itemCount: 10,
+          itemCount: shops.length,
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: 10),
         )

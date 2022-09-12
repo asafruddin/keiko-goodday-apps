@@ -5,6 +5,7 @@ import 'package:keiko_good_day/core/utils/constant/key_constant.dart';
 import 'package:keiko_good_day/presentation/theme/app_theme.dart';
 import 'package:keiko_good_day/presentation/view/intro/intro_menu.dart';
 import 'package:keiko_good_day/presentation/view/navigation/navigation.dart';
+import 'package:keiko_good_day/presentation/view/navigation/seller_navigation.dart';
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
@@ -14,9 +15,15 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLogin = sharedPref.isKeyExists(KeyConstant.keyAccessToken);
+    final loginType = sharedPref.getString(KeyConstant.keyUserType);
+
     return MaterialApp(
       theme: AppTheme.lightTheme,
-      home: isLogin ? const Navigation() : const IntroMenu(),
+      home: isLogin
+          ? loginType == 'motoris'
+              ? const Navigation()
+              : const SellerNavigation()
+          : const IntroMenu(),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_function_return_type
+
 import 'package:flutter/material.dart';
 import 'package:keiko_good_day/core/utils/debouncer.dart';
 

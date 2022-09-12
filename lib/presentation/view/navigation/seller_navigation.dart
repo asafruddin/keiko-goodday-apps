@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_function_return_type
+
 import 'package:flutter/material.dart';
 import 'package:keiko_good_day/presentation/view/information/seller_information_page.dart';
 import 'package:keiko_good_day/presentation/view/purchase/purchase_page.dart';
@@ -21,22 +23,25 @@ class _SellerNavigationState extends State<SellerNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
-        valueListenable: _selectedIndex,
-        builder: (context, value, child) {
-          return Scaffold(
-            body: NavBarPageView(
-                controller: pageController, onPageChange: onPageChange),
-            bottomNavigationBar: BottomNavigationBar(
-              items: bottomNavigationBarItems,
-              currentIndex: value,
-              type: BottomNavigationBarType.fixed,
-              showUnselectedLabels: true,
-              selectedItemColor: Theme.of(context).primaryColor,
-              onTap: onBottomTap,
-            ),
-          );
-        });
+    return const Scaffold(
+      body: PurchasePage(),
+    );
+    // return ValueListenableBuilder<int>(
+    //     valueListenable: _selectedIndex,
+    //     builder: (context, value, child) {
+    //       return Scaffold(
+    //         body: NavBarPageView(
+    //             controller: pageController, onPageChange: onPageChange),
+    //         bottomNavigationBar: BottomNavigationBar(
+    //           items: bottomNavigationBarItems,
+    //           currentIndex: value,
+    //           type: BottomNavigationBarType.fixed,
+    //           showUnselectedLabels: true,
+    //           selectedItemColor: Theme.of(context).primaryColor,
+    //           onTap: onBottomTap,
+    //         ),
+    //       );
+    //     });
   }
 
   void onBottomTap(int index) {

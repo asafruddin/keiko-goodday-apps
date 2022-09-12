@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:keiko_good_day/core/injection/di.dart';
 import 'package:keiko_good_day/core/local_storage/shared_preferences.dart';
+import 'package:keiko_good_day/core/utils/constant/key_constant.dart';
 import 'package:keiko_good_day/presentation/view/intro/intro_menu.dart';
 
 class UserCard extends StatelessWidget {
@@ -12,12 +13,14 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
-            backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=1')),
+        CircleAvatar(
+            backgroundColor: Theme.of(context).disabledColor,
+            child: Icon(Icons.person_rounded,
+                color: Theme.of(context).colorScheme.onPrimary)),
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            'Hello, Monika Candra',
+            'Hello, ${_prefs.getString(KeyConstant.keyUserName)}',
             style: Theme.of(context).textTheme.headline6,
           ),
         ),

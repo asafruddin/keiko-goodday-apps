@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/core/injection/di.dart';
+import 'package:keiko_good_day/core/local_storage/shared_preferences.dart';
+import 'package:keiko_good_day/core/utils/constant/key_constant.dart';
 import 'package:keiko_good_day/presentation/view/auth/login_page.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,6 +14,7 @@ class IntroMenu extends StatefulWidget {
 
 class _IntroMenuState extends State<IntroMenu> {
   final isMotorisSelected = ValueNotifier<bool>(true);
+  final _prefs = sl<SharedPrefs>();
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +122,15 @@ class _IntroMenuState extends State<IntroMenu> {
                   }),
               SizedBox(height: size.width / 6),
               TextButton(
-                  onPressed: () => Navigator.push<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                        builder: (context) => LoginPage(
-                            isLoginAsMotoris: isMotorisSelected.value),
-                      )),
+                  onPressed: () {
+                    saveType();
+                    Navigator.push<dynamic>(
+                        context,
+                        MaterialPageRoute<dynamic>(
+                          builder: (context) => LoginPage(
+                              isLoginAsMotoris: isMotorisSelected.value),
+                        ));
+                  },
                   child: const Text('Masuk')),
               const SizedBox(height: 16),
             ],
@@ -131,5 +138,10 @@ class _IntroMenuState extends State<IntroMenu> {
         ),
       ),
     );
+  }
+
+  void saveType() async {
+    await _prefs.putString(KeyConstant.keyUserType,
+        isMotorisSelected.value ? 'motoris' : 'grosir');
   }
 }

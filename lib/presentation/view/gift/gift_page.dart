@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keiko_good_day/core/injection/di.dart';
+import 'package:keiko_good_day/presentation/bloc/master_data_loader/master_data_loader_bloc.dart';
 import 'package:keiko_good_day/presentation/view/gift/local_page/exchange_page.dart';
 import 'package:keiko_good_day/presentation/view/gift/local_page/submission_page.dart';
 
@@ -11,6 +14,7 @@ class GiftPage extends StatefulWidget {
 
 class _GiftPageState extends State<GiftPage> with TickerProviderStateMixin {
   TabController? tabController;
+  final masterDataBloc = sl<MasterDataLoaderBloc>();
 
   @override
   void initState() {
@@ -27,18 +31,21 @@ class _GiftPageState extends State<GiftPage> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Hadiah')),
-      body: Column(
-        children: [
-          TabBar(
-              indicatorColor: Theme.of(context).colorScheme.primary,
-              labelColor: Theme.of(context).colorScheme.primary,
-              controller: tabController,
-              tabs: tabs),
-          Expanded(
-              child: TabBarView(
-                  controller: tabController,
-                  children: const [SubmissionPage(), ExchangePage()]))
-        ],
+      body: BlocProvider(
+        create: (context) => masterDataBloc..add(OnGetClusterList()),
+        child: Column(
+          children: [
+            TabBar(
+                indicatorColor: Theme.of(context).colorScheme.primary,
+                labelColor: Theme.of(context).colorScheme.primary,
+                controller: tabController,
+                tabs: tabs),
+            Expanded(
+                child: TabBarView(
+                    controller: tabController,
+                    children: const [SubmissionPage(), ExchangePage()]))
+          ],
+        ),
       ),
     );
   }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/domain/entity/cluster_entity.dart';
 import 'package:keiko_good_day/presentation/view/visit/rayon_page.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 import 'package:keiko_good_day/presentation/widget/card/card_list_content.dart';
 
 class ClusterList extends StatelessWidget {
-  const ClusterList({Key? key, this.isFromGift = false}) : super(key: key);
+  const ClusterList({Key? key, this.isFromGift = false, this.clusters})
+      : super(key: key);
 
   final bool isFromGift;
+  final ClusterEntity? clusters;
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +28,23 @@ class ClusterList extends StatelessWidget {
                 ? const AlwaysScrollableScrollPhysics()
                 : const NeverScrollableScrollPhysics(),
             shrinkWrap: !isFromGift,
-            itemCount: 10,
+            itemCount: clusters?.dataClusters?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
+              final cluster = clusters?.dataClusters?[index];
               return AppCard(
                 onPress: () {
                   Navigator.push<dynamic>(
                       context,
                       MaterialPageRoute<dynamic>(
-                        builder: (context) => RayonPage(isFromGift: isFromGift),
+                        builder: (context) => RayonPage(
+                          isFromGift: isFromGift,
+                          idCluster: cluster?.id ?? 1,
+                        ),
                       ));
                 },
                 child: CardListContent(
-                  subtitle: '8 Rayon',
-                  title: 'Sidoarjo',
+                  subtitle: '${cluster?.totalRayon ?? 0} Rayon',
+                  title: cluster?.name ?? '',
                   leading: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(

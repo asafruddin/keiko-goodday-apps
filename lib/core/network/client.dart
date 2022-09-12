@@ -51,6 +51,8 @@ class Client {
           options.headers.remove('isToken');
           options.headers.addAll(<String, dynamic>{
             'Authorization': 'Bearer $storageToken',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           });
         }
 

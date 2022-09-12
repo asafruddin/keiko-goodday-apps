@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:keiko_good_day/domain/entity/confirmation_entity.dart';
 
 class ConfirmationContent extends StatelessWidget {
-  const ConfirmationContent({Key? key}) : super(key: key);
+  const ConfirmationContent({Key? key, this.confirmation}) : super(key: key);
+
+  final DataConfirmationEntity? confirmation;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Kedai Kopi Mantap', style: Theme.of(context).textTheme.headline6),
+        Text(confirmation?.shop?.name ?? '',
+            style: Theme.of(context).textTheme.headline6),
         const SizedBox(height: 16),
-        const DetailContent(title: 'Point', data: '902384'),
+        DetailContent(
+            title: 'Point', data: confirmation?.shop?.point.toString()),
         DetailContent(
             title: 'Tanggal',
-            data: DateFormat('EE, dd MMM yyyy').format(DateTime.now())),
+            data: confirmation?.date == null
+                ? ''
+                : DateFormat('EE, dd MMM yyyy').format(
+                    DateTime.tryParse(confirmation?.date ?? '') ??
+                        DateTime.now())),
       ],
     );
   }

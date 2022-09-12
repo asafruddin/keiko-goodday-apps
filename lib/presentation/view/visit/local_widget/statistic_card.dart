@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:keiko_good_day/domain/entity/statistic_entity.dart';
 import 'package:keiko_good_day/presentation/widget/card/app_card.dart';
 
 class StatisticCard extends StatelessWidget {
-  const StatisticCard({Key? key}) : super(key: key);
+  const StatisticCard({Key? key, required this.statistic}) : super(key: key);
+  final StatisticEntity? statistic;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class StatisticCard extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       child: RichText(
                           text: TextSpan(
-                              text: '6',
+                              text: statistic?.clusters.toString() ?? '0',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -57,7 +59,7 @@ class StatisticCard extends StatelessWidget {
                                 text: ' Cluster dan ',
                                 style: Theme.of(context).textTheme.bodyText1),
                             TextSpan(
-                                text: '19',
+                                text: statistic?.rayons.toString() ?? '0',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -101,7 +103,7 @@ class StatisticCard extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                       child: RichText(
                           text: TextSpan(
-                              text: '6',
+                              text: statistic?.shops.toString() ?? '0',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!

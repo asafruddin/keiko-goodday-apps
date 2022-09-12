@@ -97,9 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                             labelText: 'Username',
                             hintText: 'Masukkan Username'),
                         AppTextField(
-                            controller: passwordController,
-                            labelText: 'Password',
-                            hintText: 'Masukkan Password'),
+                          controller: passwordController,
+                          labelText: 'Password',
+                          hintText: 'Masukkan Password',
+                          securableText: true,
+                        ),
                         const SizedBox(height: 30),
                         TextButton(
                             onPressed: onLogin, child: const Text('Login'))
@@ -125,14 +127,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onLogin() {
-    Navigator.pushAndRemoveUntil<dynamic>(
-        context,
-        MaterialPageRoute<dynamic>(
-            builder: (context) => widget.isLoginAsMotoris
-                ? const Navigation()
-                : const SellerNavigation()),
-        (route) => false);
-    // loginBloc.add(OnloginEvent(LoginBody(
-    //     username: usernameController.text, password: passwordController.text)));
+    // Navigator.pushAndRemoveUntil<dynamic>(
+    //     context,
+    //     MaterialPageRoute<dynamic>(
+    //         builder: (context) => widget.isLoginAsMotoris
+    //             ? const Navigation()
+    //             : const SellerNavigation()),
+    //     (route) => false);
+    loginBloc.add(OnloginEvent(LoginBody(
+        username: usernameController.text, password: passwordController.text)));
   }
 }

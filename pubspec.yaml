@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_launcher_icons: ^0.10.0
   flutter_localizations:
     sdk: flutter
   geocoding: null
@@ -36,7 +37,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.3.1
   mocktail: ^0.2.0
-  very_good_analysis: ^2.4.0
+  very_good_analysis: ^3.0.1
 
 flutter:
   uses-material-design: true
