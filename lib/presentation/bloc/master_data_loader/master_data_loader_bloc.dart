@@ -60,46 +60,53 @@ class MasterDataLoaderBloc
 
   Future onGetStatisticEvent(
       OnGetStatistic event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await statisticUseCase.execute(NoParams());
 
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('ERROR --> $l');
       }
     }, (r) {
-      emit(state.copyWith(statisticEntity: r));
+      emit(state.copyWith(statisticEntity: r, isLoading: false));
     });
   }
 
   Future onGetClusterList(
       OnGetClusterList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await clusterUseCase.execute(NoParams());
 
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('ERROR --> $l');
       }
     }, (r) {
-      emit(state.copyWith(clusterEntity: r));
+      emit(state.copyWith(clusterEntity: r, isLoading: false));
     });
   }
 
   Future onGetRayonsList(
       OnGetRayonsList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await rayonsUseCase.execute(event.idCluster);
 
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('ERROR ---> $l');
       }
     }, (r) {
-      emit(state.copyWith(rayonsEntity: r));
+      emit(state.copyWith(rayonsEntity: r, isLoading: false));
     });
   }
 
   Future onRayonSearch(
       OnRayonSearch event, Emitter<MasterDataLoaderState> emit) async {
     final rayons = state.rayonsEntity;
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = <DataRayonEntity>[];
     for (final rayon in rayons!.dataRayons!) {
       if (rayon.name?.toLowerCase().contains(event.query.toLowerCase()) ??
@@ -113,27 +120,32 @@ class MasterDataLoaderBloc
 
   Future onGetProductList(
       OnGetProductList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await producUseCase.execute(NoParams());
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('Error ---> $l');
       }
-    }, (r) => emit(state.copyWith(productEntity: r)));
+    }, (r) => emit(state.copyWith(productEntity: r, isLoading: false)));
   }
 
   Future onGetShopList(
       OnGetShopList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await shopsUseCase.execute(event.idRayon);
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('Error ---> $l');
       }
-    }, (r) => emit(state.copyWith(shopEntity: r)));
+    }, (r) => emit(state.copyWith(shopEntity: r, isLoading: false)));
   }
 
   Future onShopSearch(
       OnShopSearch event, Emitter<MasterDataLoaderState> emit) async {
     final shops = state.shopEntity;
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = <DataShopsEntity>[];
 
     for (final shop in shops!.shops!) {
@@ -148,31 +160,37 @@ class MasterDataLoaderBloc
 
   Future onGetShopDetail(
       OnGetShopDetail event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await shopDetailUseCase.execute(event.idShop);
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('Error ---> $l');
       }
-    }, (r) => emit(state.copyWith(shopDetailEntity: r)));
+    }, (r) => emit(state.copyWith(shopDetailEntity: r, isLoading: false)));
   }
 
   Future onGetGiftList(
       OnGetGiftList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await giftUseCase.execute(NoParams());
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('Error ---> $l');
       }
-    }, (r) => emit(state.copyWith(giftEntity: r)));
+    }, (r) => emit(state.copyWith(giftEntity: r, isLoading: false)));
   }
 
   Future onGetConfirmationList(
       OnGetConfirmationList event, Emitter<MasterDataLoaderState> emit) async {
+    emit(state.copyWith(isLoading: true, errorMsg: null));
     final result = await confirmationUseCase.execute(event.body);
     result.fold((l) {
+      emit(state.copyWith(isLoading: false, errorMsg: l.message.toString()));
       if (kDebugMode) {
         print('Error ---> $l');
       }
-    }, (r) => emit(state.copyWith(confirmationEntity: r)));
+    }, (r) => emit(state.copyWith(confirmationEntity: r, isLoading: false)));
   }
 }

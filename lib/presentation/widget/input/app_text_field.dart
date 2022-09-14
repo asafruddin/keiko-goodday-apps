@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatefulWidget {
@@ -37,7 +39,8 @@ class _AppTextFieldState extends State<AppTextField> {
             builder: (context, value, child) {
               return TextFormField(
                 controller: widget.controller,
-                obscureText: securePassword.value,
+                obscureText:
+                    !widget.securableText! ? false : securePassword.value,
                 decoration: InputDecoration(
                     border: border,
                     hintText: widget.hintText,

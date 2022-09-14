@@ -54,7 +54,7 @@ class _ShopPageState extends State<ShopPage> {
                       double.tryParse(shop?.lat ?? '') ?? 0,
                       double.tryParse(shop?.lang ?? '') ?? 0);
 
-                  enableReportButton.value = distance >= 100;
+                  enableReportButton.value = distance <= 100;
                 },
               );
               return SafeArea(

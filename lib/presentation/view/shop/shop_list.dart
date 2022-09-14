@@ -51,6 +51,25 @@ class _ShopListState extends State<ShopList> {
               shops = state.shopEntity?.shops ?? [];
             }
 
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state.errorMsg != null) {
+              return Center(
+                child: Text(
+                  state.errorMsg ?? 'Terjadi Kesalahan',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              );
+            }
+            if (shops.isEmpty) {
+              return Center(
+                child: Text(
+                  'Data Rayon Kosong',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              );
+            }
+
             return ListView.separated(
                 itemBuilder: (context, index) {
                   final shop = shops[index];

@@ -43,6 +43,24 @@ class _RayonPageState extends State<RayonPage> {
             } else {
               list = state.rayonsEntity?.dataRayons ?? [];
             }
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state.errorMsg != null) {
+              return Center(
+                child: Text(
+                  state.errorMsg ?? 'Terjadi Kesalahan',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              );
+            }
+            if (list.isEmpty) {
+              return Center(
+                child: Text(
+                  'Data Rayon Kosong',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              );
+            }
             return ListView.separated(
                 itemBuilder: (context, index) {
                   final rayon = list[index];

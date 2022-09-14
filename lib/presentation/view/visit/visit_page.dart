@@ -23,7 +23,7 @@ class _VisitPageState extends State<VisitPage> {
         foregroundColor: Theme.of(context).colorScheme.primary,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Image.asset('assets/img_logo.png', height: 50),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: BlocProvider(
         create: (context) => masterBloc
@@ -31,15 +31,22 @@ class _VisitPageState extends State<VisitPage> {
           ..add(OnGetClusterList()),
         child: BlocBuilder<MasterDataLoaderBloc, MasterDataLoaderState>(
           builder: (context, state) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              children: [
-                UserCard(),
-                const SizedBox(height: 20),
-                StatisticCard(statistic: state.statisticEntity),
-                const SizedBox(height: 20),
-                ClusterList(clusters: state.clusterEntity),
-              ],
+            return RefreshIndicator(
+              onRefresh: () => Future.sync(() {
+                context.read<MasterDataLoaderBloc>().add(OnGetStatistic());
+                context.read<MasterDataLoaderBloc>().add(OnGetClusterList());
+              }),
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                children: [
+                  UserCard(),
+                  const SizedBox(height: 20),
+                  StatisticCard(statistic: state.statisticEntity),
+                  const SizedBox(height: 20),
+                  ClusterList(clusters: state.clusterEntity),
+                ],
+              ),
             );
           },
         ),

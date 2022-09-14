@@ -11,7 +11,9 @@ class MasterDataLoaderState extends Equatable {
       this.shopDetailEntity,
       this.shopSearchEntity,
       this.giftEntity,
-      this.confirmationEntity});
+      this.confirmationEntity,
+      this.errorMsg,
+      this.isLoading = false});
 
   final StatisticEntity? statisticEntity;
   final ClusterEntity? clusterEntity;
@@ -23,6 +25,8 @@ class MasterDataLoaderState extends Equatable {
   final ShopDetailEntity? shopDetailEntity;
   final GiftEntity? giftEntity;
   final ConfirmationEntity? confirmationEntity;
+  final bool isLoading;
+  final String? errorMsg;
 
   MasterDataLoaderState copyWith(
       {StatisticEntity? statisticEntity,
@@ -34,7 +38,9 @@ class MasterDataLoaderState extends Equatable {
       ShopDetailEntity? shopDetailEntity,
       GiftEntity? giftEntity,
       ShopEntity? shopSearchEntity,
-      ConfirmationEntity? confirmationEntity}) {
+      ConfirmationEntity? confirmationEntity,
+      bool? isLoading,
+      String? errorMsg}) {
     return MasterDataLoaderState(
         statisticEntity: statisticEntity ?? this.statisticEntity,
         clusterEntity: clusterEntity ?? this.clusterEntity,
@@ -45,7 +51,9 @@ class MasterDataLoaderState extends Equatable {
         shopDetailEntity: shopDetailEntity ?? this.shopDetailEntity,
         giftEntity: giftEntity ?? this.giftEntity,
         shopSearchEntity: shopSearchEntity ?? this.shopSearchEntity,
-        confirmationEntity: confirmationEntity ?? this.confirmationEntity);
+        confirmationEntity: confirmationEntity ?? this.confirmationEntity,
+        errorMsg: errorMsg ?? this.errorMsg,
+        isLoading: isLoading ?? this.isLoading);
   }
 
   @override
@@ -59,7 +67,9 @@ class MasterDataLoaderState extends Equatable {
         shopDetailEntity,
         giftEntity,
         shopSearchEntity,
-        confirmationEntity
+        confirmationEntity,
+        isLoading,
+        errorMsg
       ];
 }
 
